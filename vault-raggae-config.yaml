@@ -1,0 +1,26 @@
+gpu:
+  memory_limit: 10GB
+  enable_swapping: true
+  kv_cache_fraction: 0.4  # 40% of model memory = ~2GB for Mistral-7B
+
+models:
+  embedding:
+    model: nvidia/embedding-nv-1
+    quantization: int8
+    gpu_memory: 2GB
+
+  llm:
+    model: mistral:7b-instruct
+    quantization: 4bit
+    gpu_memory: 5GB
+    kv_cache_max: 8192  # tokens
+
+  reranker:
+    enabled: false  # Start disabled for benchmark comparison
+    model: nvidia/reranker-nv-1
+    gpu_memory: 1.5GB
+
+vector_db:
+  type: milvus
+  gpu_memory: 1.5GB
+  collection_name: vaultwares
